@@ -3,7 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "TZ": "${localEnv:TZ:America/Los_Angeles}"
+      "TZ": "${localEnv:TZ:America/Los_Angeles}",
+      "REPO": "${localEnv:REPO:laywill.github.io}"
     }
   },
   "runArgs": [
@@ -39,7 +40,8 @@
   "remoteUser": "node",
   "mounts": [
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume"
+    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/repos/${localEnv:REPO},target=/host-home-folder,type=bind,consistency=cached"
   ],
   "remoteEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",
